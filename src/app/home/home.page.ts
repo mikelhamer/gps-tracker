@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { ViewWillEnter } from '@ionic/angular';
 import { Geolocation, Position } from '@capacitor/geolocation';
+import { SMS } from '@awesome-cordova-plugins/sms/ngx';
+
 
 @Component({
   selector: 'app-home',
@@ -10,8 +12,9 @@ import { Geolocation, Position } from '@capacitor/geolocation';
 export class HomePage implements ViewWillEnter {
 
   currentPosition: Position;
+  phoneNumber: string;
 
-  constructor() {
+  constructor(private sms: SMS) {
   }
 
   async ionViewWillEnter() {
@@ -20,6 +23,13 @@ export class HomePage implements ViewWillEnter {
       timeout: 5000
     });
     console.log('Position: ' + JSON.stringify(this.currentPosition));
+  }
+
+  sendSMS() {
+    this.sms.send(this.phoneNumber, `${this.currentPosition.coords.latitude}, ${this.currentPosition.coords.longitude}`)
+      .then(r => {
+        console.log(JSON.stringify(r));
+      });
   }
 
 }
