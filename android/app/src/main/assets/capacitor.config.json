@@ -1,0 +1,6 @@
+{
+	"appId": "io.ionic.starter",
+	"appName": "gps-tracker",
+	"webDir": "www",
+	"bundledWebRuntime": false
+}
